@@ -2,6 +2,7 @@ package com.huangfeng.activitylifecycletest;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate");
+
 
         Button start_normal_activity = (Button) findViewById(R.id.start_normal_activity);
         Button start_dialog_activity = (Button) findViewById(R.id.start_dialog_activity);
@@ -36,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        if(savedInstanceState != null){
+            String temp_data = savedInstanceState.getString("data_key");
+            Log.d(TAG, temp_data);
+        }
 
     }
 
@@ -74,5 +82,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause");
+        Log.d(TAG, "onPause");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        String temp_data = "this is the tempdata";
+        outState.putString("data_key",temp_data);
     }
 }
